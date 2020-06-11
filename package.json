@@ -4,7 +4,9 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fetch": "node -r esm fetch.js",
+    "analyze": "node -r esm analyze.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/TeddyRandby/OCRTest/issues"
   },
-  "homepage": "https://github.com/TeddyRandby/OCRTest#readme"
+  "homepage": "https://github.com/TeddyRandby/OCRTest#readme",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
 }
