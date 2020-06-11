@@ -1,17 +1,17 @@
-var BoxSDK = require('box-node-sdk');
+var BoxSDK = require("box-node-sdk");
 
 // Initialize the SDK with your app credentials
 var sdk = new BoxSDK({
-  clientID: 'CLIENT_ID',
-  clientSecret: 'CLIENT_SECRET'
+  clientID: "uve8miwkcbfeavh8mm1fn4ylcyr8m65k",
+  clientSecret: "ab6Xjsqz0iFi55YiH2Cv8iORxWj6yEti",
 });
 
 // Create a basic API client, which does not automatically refresh the access token
-var client = sdk.getBasicClient('DEVELOPER_TOKEN');
+var client = sdk.getBasicClient("ERSBj6pelrbR8DVFbj6VVSYAI4BpWZDY");
 
-// Get your own user object from the Box API
-// All client methods return a promise that resolves to the results of the API call,
-// or rejects when an error occurs
-client.users.get(client.CURRENT_USER_ID)
-	.then(user => console.log('Hello', user.name, '!'))
-	.catch(err => console.log('Got an error!', err));
+
+ // Get file information for FDR HMI
+client.folders
+  .get('111202498273')
+  .then((folder) => console.log(folder))
+  .catch((err) => console.log("Got an error!", err));
