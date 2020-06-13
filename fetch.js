@@ -12,15 +12,11 @@ var sdk = new BoxSDK({
 var client = sdk.getBasicClient("Ty7I8wQPgj7wgjZemBNntGC4VRQI7061");
 
 // Get file information for FDR HMI
+// Hardcoded to just fetch a single file
 client.folders
   .get("108901511164")
   .then((folder) => parseFolderInfo(folder))
   .catch((err) => console.log("Got an error!", err));
-
-// client.files
-//   .getDownloadURL('644935914817')
-//   .then((image)=> parseImageData(image))
-//   .catch((err)=> console.log("Got an error!",err));
 
 const parseFolderInfo = (folder) => {
   console.log(folder.id, folder.name);
@@ -58,6 +54,7 @@ const parseImageURL = (url, urls) => {
       },
     };
     request.post(options, function (err, httpResponse, body) {
+      // Replace this with writing to a file in an organized way
       console.log(body);
       urls = [];
     });
