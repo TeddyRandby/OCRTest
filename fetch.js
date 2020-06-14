@@ -9,7 +9,7 @@ var sdk = new BoxSDK({
 });
 
 // Create a basic API client, which does not automatically refresh the access token
-var client = sdk.getBasicClient("Ty7I8wQPgj7wgjZemBNntGC4VRQI7061");
+var client = sdk.getBasicClient("kFuIEMkQVylGGuitNnlcP8Do3F7fCytJ");
 
 // Get file information for FDR HMI
 // Hardcoded to just fetch a single file
@@ -24,25 +24,32 @@ const parseFolderInfo = (folder) => {
   console.log("Items:", folder.item_collection.total_count);
 
   var entries = folder.item_collection.entries;
-
   for (entry in entries) {
     var urls = [];
+    var data = {};
     client.files
       .getDownloadURL(entries[entry].id)
-      .then((imageURL) => parseImageURL(imageURL, urls))
+      .then((imageURL) => handleImageURL(imageURL, urls, data))
       .catch((err) => console.log("Got an error!", err));
   }
 };
 
-const parseImageURL = (url, urls) => {
+const writeData = (data) => {
+  fs.writeFile("NewData.json", JSON.stringify(data), "utf8", function (err) {
+    if (err) return console.log(err);
+  });
+};
+
+const handleImageURL = (url, urls, data) => {
   urls.push(url);
   if (urls.length >= 64) {
     var querystring = require("querystring");
     const form_data = {
-      urls: urls
+      urls: urls,
     };
     const options = {
-      url: "https://app.nanonets.com/api/v2/OCR/Model/4cae0f95-be52-4ed2-b589-98010662c5f7/LabelUrls/",
+      url:
+        "https://app.nanonets.com/api/v2/OCR/Model/4155eaa4-51b8-4f3d-b985-a62cac749d81/LabelUrls/",
       body: querystring.stringify(form_data),
       headers: {
         Authorization:
@@ -54,8 +61,8 @@ const parseImageURL = (url, urls) => {
       },
     };
     request.post(options, function (err, httpResponse, body) {
-      // Replace this with writing to a file in an organized way
-      console.log(body);
+      data["call" + Object.keys(data).length] = body;
+      writeData(data);
       urls = [];
     });
   }
