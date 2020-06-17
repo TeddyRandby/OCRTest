@@ -9,13 +9,18 @@ var sdk = new BoxSDK({
 });
 
 // Create a basic API client, which does not automatically refresh the access token
-var client = sdk.getBasicClient("kFuIEMkQVylGGuitNnlcP8Do3F7fCytJ");
+var client = sdk.getBasicClient("acszLiuIQK4CTZ45pgy3zx7atpMXBLOV");
 
 // Get file information for FDR HMI
 // Hardcoded to just fetch a single file
-client.folders
-  .get("108901511164")
-  .then((folder) => parseFolderInfo(folder))
+// client.folders
+//   .get("108901511164")
+//   .then((folder) => parseFolderInfo(folder))
+//   .catch((err) => console.log("Got an error!", err));
+
+client.files
+  .getDownloadURL("644867519758")
+  .then((imageURL) => console.log(imageURL))
   .catch((err) => console.log("Got an error!", err));
 
 const parseFolderInfo = (folder) => {
@@ -35,7 +40,7 @@ const parseFolderInfo = (folder) => {
 };
 
 const writeData = (data) => {
-  fs.writeFile("NewData.json", JSON.stringify(data), "utf8", function (err) {
+  fs.writeFile("data.json", JSON.stringify(data), "utf8", function (err) {
     if (err) return console.log(err);
   });
 };

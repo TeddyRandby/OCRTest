@@ -1,6 +1,6 @@
 export function hasHandwritten(el){
     var res = false;
-    el.prediction.forEach(item => {
+    el.predictions.forEach(item => {
         if(item.label == "Handwritten"){
             res = true;
         }
